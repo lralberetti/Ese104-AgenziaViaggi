@@ -9,26 +9,31 @@ public class Pacchetto {
 	
 	
 	public Pacchetto(String codice, String descrizione, int postiTotali) {
-		
-		this.codice = codice;
-		this.descrizione = descrizione;
+		if (codice.length() == 0)
+			throw new IllegalArgumentException ("Inserire il codice, deve avere più di 0 caratteri");
+		else
+			this.codice = codice;
+		if (descrizione.length() == 0)
+			throw new IllegalArgumentException("Inserire la descrizione, deve avere più di 0 caratteri");
+		else
+			this.descrizione = descrizione;
 		this.postiTotali = postiTotali;
 		this.prenotazioni = new Vector<Prenotazione>();//nome della classe non nome stesso
 		
 	}
 	
 	public void addPrenotazione(Prenotazione p){
-		if(p.getPostiRichiesti()>getPostiDisponibili()) //PostiRichiesti si trova dentro prenotazione perchio uso p. per riferirmi al metodo di un altra classe
+		if (getPostiDisponibili() < p.getPostiRichiesti())
 			throw new IllegalArgumentException("I posti non sono disponibili"); 
 		else
 			this.prenotazioni.addElement(p);
 	}
 	
 	public int getPostiDisponibili(){
-		int postiDisponibili=getPostiTotali();
+		int postiDisponibili = this.postiTotali;
 		for(int i=0;i<prenotazioni.size();i++)
 		{
-			postiDisponibili //utiliazzare il -= 
+			postiDisponibili-= prenotazioni.elementAt(i).getPostiRichiesti();
 		}
 		return postiDisponibili;
 	}
