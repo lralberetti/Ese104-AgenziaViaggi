@@ -11,7 +11,6 @@ public class Prenotazione {
 			Cliente cliente) {
 		if (codice.length() == 0)
 			throw new IllegalArgumentException ("Inserire il codice, deve avere più di 0 caratteri");
-		else
 			this.codice = codice;
 		this.postiRichiesti = postiRichiesti;
 		this.filiale = filiale;
